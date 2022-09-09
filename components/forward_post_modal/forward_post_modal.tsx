@@ -28,6 +28,7 @@ import PostMessagePreview from 'components/post_view/post_message_preview';
 import GenericModal from 'components/generic_modal';
 import {getSiteURL} from '../../utils/url';
 import * as Utils from '../../utils/utils';
+import CompassEditor from '../wysiwyg/compass-editor';
 
 import ForwardPostChannelSelect, {ChannelOption, makeSelectedChannelOption} from './forward_post_channel_select';
 import ForwardPostCommentInput from './forward_post_comment_input';
@@ -279,6 +280,10 @@ const ForwardPostModal = ({onExited, post, actions}: Props) => {
                     onSubmit={handleSubmit}
                     onHeightChange={onHeightChange}
                     permaLinkLength={permaLink.length}
+                />
+                <CompassEditor
+                    value={comment}
+                    onChange={(msg: string) => setComment(msg)}
                 />
                 <div className={'forward-post__post-preview'}>
                     <span className={'forward-post__post-preview--title'}>
