@@ -4,7 +4,7 @@ import {useMemo} from 'react';
 
 import useElementAvailable from 'components/common/hooks/useElementAvailable';
 
-import {TutorialTipPunchout} from './tutorial_tip_backdrop';
+import {TourTipOverlayPunchOut} from 'components/widgets/tour_tip';
 
 type PunchoutOffset = {
     x: number;
@@ -13,7 +13,7 @@ type PunchoutOffset = {
     height: number;
 }
 
-export function useMeasurePunchoutsDeprecated(elementIds: string[], additionalDeps: any[], offset?: PunchoutOffset): TutorialTipPunchout | null | undefined {
+export function useMeasurePunchoutsDeprecated(elementIds: string[], additionalDeps: any[], offset?: PunchoutOffset): TourTipOverlayPunchOut | null {
     const elementsAvailable = useElementAvailable(elementIds);
 
     const channelPunchout = useMemo(() => {

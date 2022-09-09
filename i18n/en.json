@@ -4839,7 +4839,7 @@
   "tutorial_threads.list.title": "Threads List",
   "tutorial_threads.threads_pane.description": "Click the **Follow** button to be notified about replies and see it in your **Threads** view. Within a thread, the **New Messages** line shows you where you left off.",
   "tutorial_threads.threads_pane.title": "Viewing a thread in the sidebar",
-  "tutorial_threads.unread.description": "You can switch to **Unreads** to show only threads that are unread.",
+  "tutorial_threads.unread.description": "You can switch to <b>Unreads</b> to show only threads that are unread.",
   "tutorial_threads.unread.title": "Unread threads",
   "tutorial_threads.welcome.description": "All the conversations that you’re participating in or following will show here. If you have unread messages or mentions within your threads, you’ll see that here too.",
   "tutorial_threads.welcome.title": "Welcome to the Threads view!",

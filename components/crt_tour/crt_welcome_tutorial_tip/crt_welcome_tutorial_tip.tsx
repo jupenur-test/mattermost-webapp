@@ -2,30 +2,13 @@
 // See LICENSE.txt for license information.
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
-import {useDispatch, useSelector} from 'react-redux';
 
-import {getCurrentRelativeTeamUrl} from 'mattermost-redux/selectors/entities/teams';
 import {Constants} from 'utils/constants';
-import {GlobalState} from 'types/store';
-import FormattedMarkdownMessage from 'components/formatted_markdown_message';
-import TutorialTip from 'components/tutorial/tutorial_tip_legacy';
 import {useMeasurePunchoutsDeprecated} from 'components/tutorial/tutorial_tip_legacy/hooks';
-import {close as closeLhs} from 'actions/views/lhs';
-import {browserHistory} from 'utils/browser_history';
+import {CrtTourManager as crtTourManager, nextAndPrevButton} from '../crt_tour_manager';
+import TourTip from 'components/widgets/tour_tip';
 
-type Props = {
-    autoTour: boolean;
-};
-
-const CRTWelcomeTutorialTip = ({autoTour}: Props) => {
-    const dispatch = useDispatch();
-    const teamUrl = useSelector((state: GlobalState) => getCurrentRelativeTeamUrl(state));
-    const nextUrl = `${teamUrl}/threads`;
-    const onNextNavigateTo = () => {
-        browserHistory.push(nextUrl);
-        dispatch(closeLhs());
-    };
-
+const CRTWelcomeTutorialTip = () => {
     const title = (
         <FormattedMessage
             id='tutorial_threads.welcome.title'
@@ -35,26 +18,49 @@ const CRTWelcomeTutorialTip = ({autoTour}: Props) => {
 
     const screen = (
         <p>
-            <FormattedMarkdownMessage
+            <FormattedMessage
                 id='tutorial_threads.welcome.description'
-                defaultMessage={'All the conversations that you’re participating in or following will show here. If you have unread messages or mentions within your threads, you’ll see that here too.'}
+                defaultMessage={
+                    'All the conversations that you’re participating in or following will show here. If you have unread messages or mentions within your threads, you’ll see that here too.'
+                }
             />
         </p>
     );
 
+    const {
+        show,
+        tourSteps,
+        handleOpen,
+        handleDismiss,
+        handleNext,
+        handlePrevious,
+        handleSkip,
+        handleJump,
+    } = crtTourManager();
+
     return (
-        <TutorialTip
+        <TourTip
+            show={show}
             title={title}
-            onNextNavigateTo={onNextNavigateTo}
-            placement='right'
             showOptOut={false}
-            step={Constants.CrtTutorialSteps.WELCOME_POPOVER}
-            tutorialCategory={Constants.Preferences.CRT_TUTORIAL_STEP}
             screen={screen}
-            overlayClass='tip-overlay--threads-welcome '
-            autoTour={autoTour}
-            punchOut={useMeasurePunchoutsDeprecated(['sidebar-threads-button'], [])}
-            telemetryTag='tutorial_tip_threads-welcome'
+            overlayPunchOut={useMeasurePunchoutsDeprecated(
+                ['sidebar-threads-button'],
+                [],
+            )}
+            step={Constants.CrtTutorialSteps.WELCOME_POPOVER}
+            placement='right-start'
+            pulsatingDotPlacement='right-start'
+            interactivePunchOut={true}
+            tourSteps={tourSteps}
+            nextBtn={nextAndPrevButton.nextBtn}
+            prevBtn={nextAndPrevButton.prevBtn}
+            handleOpen={handleOpen}
+            handleDismiss={handleDismiss}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            handleSkip={handleSkip}
+            handleJump={handleJump}
         />
     );
 };
